@@ -8,5 +8,9 @@ public class SwordAttack : MonoBehaviour
 		{
 			destructable.Destruct();
 		}
+		if (collision.TryGetComponent(out Boss boss))
+		{
+			boss.LoseHealth();
+		}
 	}
 }
