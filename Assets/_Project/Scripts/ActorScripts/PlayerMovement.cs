@@ -34,58 +34,6 @@ public class PlayerMovement : MonoBehaviour
 
 	private void MovementDirection()
 	{
-		//if (InputDirection != Vector2.zero)
-		//{
-		//	if (Mathf.Abs(InputDirection.x) <= _maximumAngle)
-		//	{
-		//		if (InputDirection.x > 0.0f)
-		//		{
-		//			if (InputDirection.y > 0.0f)
-		//			{
-		//				_inputDirection.x = 0.75f;
-		//				_inputDirection.y = 0.75f;
-		//			}
-		//			else
-		//			{
-		//				_inputDirection.x = 0.75f;
-		//				_inputDirection.y = -0.75f;
-		//			}
-		//		}
-		//		else
-		//		{
-		//			if (InputDirection.y > 0.0f)
-		//			{
-		//				_inputDirection.x = -0.75f;
-		//				_inputDirection.y = 0.75f;
-		//			}
-		//			else
-		//			{
-		//				_inputDirection.x = -0.75f;
-		//				_inputDirection.y = -0.75f;
-		//			}
-		//		}
-		//	}
-		//	if (Mathf.Abs(InputDirection.y) != 1.0f)
-		//	{
-		//		if (Mathf.Abs(InputDirection.x) <= _minimumAngle && Mathf.Abs(InputDirection.x) >= _maximumAngle)
-		//		{
-		//			_inputDirection.y = 0.0f;
-		//			_inputDirection.x = Mathf.RoundToInt(InputDirection.x);
-		//		}
-		//	}
-		//	if (Mathf.Abs(InputDirection.x) != 1.0f)
-		//	{
-		//		if (Mathf.Abs(InputDirection.y) <= _minimumAngle && Mathf.Abs(InputDirection.y) >= _maximumAngle)
-		//		{
-		//			_inputDirection.y = Mathf.RoundToInt(InputDirection.y);
-		//			_inputDirection.x = 0.0f;
-		//		}
-		//	}
-		//}
-		//else
-		//{
-		//	_inputDirection = Vector2.zero;
-		//}
 		if (InputDirection != Vector2.zero)
 		{
 			if (Mathf.Abs(InputDirection.x) == 1.0f && Mathf.Abs(InputDirection.y) == 1.0f)
