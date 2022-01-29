@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour
 	private Vector2 _inputDirection;
 	private readonly float _currentFootstepSpeed = 0.3f;
 	private readonly float _movementSpeed = 4.0f;
-	private readonly float _dodgeForce = 11.0f;
+	private readonly float _dodgeForce = 10.0f;
 	private float _footstepCooldown;
 	public Vector2 InputDirection { get; set; }
 	public Vector2 CachedMoveDirection { get; private set; } = Vector2.down;
