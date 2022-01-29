@@ -1,17 +1,23 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
 	[SerializeField] private PlayerUI _playerUI = default;
 	[SerializeField] private PlayerAnimator _playerAnimator = default;
+	private PlayerMovement _playerMovement;
 	private float _blite;
+	private int _health = 3;
 	public bool IsAttacking { get; private set; }
+	public bool IsHurt { get; set; }
 
 
 	private void Start()
 	{
 		_blite = 1.0f;
 		_playerUI.SetBlite(_blite);
+		_playerMovement = GetComponent<PlayerMovement>();
 	}
 
 	void Update()
@@ -50,5 +56,22 @@ public class Player : MonoBehaviour
 	public void StopAttack()
 	{
 		IsAttacking = false;
+	}
+
+	public void LoseHealth()
+	{
+		if (!IsHurt)
+		{
+			_health--;
+			_playerUI.SetHealth(_health);
+			if (_health <= 0)
+			{
+				Destroy(gameObject);
+				SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+			}
+			IsHurt = true;
+			_playerMovement.Knockback();
+			//StartCoroutine(InvisibilityCoroutine());
+		}
 	}
 }

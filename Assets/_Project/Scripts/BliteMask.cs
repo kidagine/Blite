@@ -11,6 +11,7 @@ public class BliteMask : MonoBehaviour
 
 	private void Start()
 	{
+		target = Camera.main.gameObject;
 		_spriteRenderer = GetComponent<SpriteRenderer>();
 		if (_spriteRenderer == null) _tileRenderer = GetComponent<TilemapRenderer>();
 	}

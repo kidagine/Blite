@@ -1,4 +1,5 @@
 using Demonics.Manager;
+using Demonics.Sounds;
 using System.Collections;
 using UnityEngine;
 
@@ -6,10 +7,18 @@ using UnityEngine;
 public class BliteManager : Singleton<BliteManager>
 {
 	public float BliteDistance = 0.0f;
-	private bool _isWorldBlack = true;
 	private readonly float _maxBliteDistance = 12.0f;
 	private readonly float _minBliteDistance = 0.0f;
+	private Audio _audio;
+	public bool IsWorldBlack { get; set; } = true;
 	public bool IsWorldChanging { get; private set; }
+
+
+	void Start()
+	{
+		_audio = GetComponent<Audio>();
+	}
+
 	public void SwapWorlds()
 	{
 		StartCoroutine(SwapWorldsCoroutine());
@@ -21,7 +30,16 @@ public class BliteManager : Singleton<BliteManager>
 		float elapsedTime = 0.0f;
 		float waitTime = 0.5f;
 		float startValue = BliteDistance;
-		float endValue = _isWorldBlack ? _maxBliteDistance : _minBliteDistance;
+		if (IsWorldBlack)
+		{
+			_audio.Sound("WorldBlack").Play();
+		}
+		else
+		{
+			_audio.Sound("WorldWhite").Play();
+		}
+		float endValue = IsWorldBlack ? _maxBliteDistance : _minBliteDistance;
+		IsWorldBlack = !IsWorldBlack;
 		while (elapsedTime < waitTime)
 		{
 			BliteDistance = Mathf.Lerp(startValue, endValue, (elapsedTime / waitTime));
@@ -29,7 +47,6 @@ public class BliteManager : Singleton<BliteManager>
 			yield return null;
 		}
 		BliteDistance = endValue;
-		_isWorldBlack = !_isWorldBlack;
 		IsWorldChanging = false;
 		yield return null;
 	}
