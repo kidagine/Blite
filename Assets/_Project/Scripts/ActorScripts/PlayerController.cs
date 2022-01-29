@@ -5,6 +5,7 @@ public class PlayerController : MonoBehaviour
 	private PlayerMovement _playerMovement;
 	private Player _player;
 
+
 	void Start()
 	{
 		_player = GetComponent<Player>();
@@ -15,6 +16,7 @@ public class PlayerController : MonoBehaviour
 	{
 		SetMovementInput();
 		Dodge();
+		Attack();
 		Blite();
 	}
 
@@ -36,7 +38,7 @@ public class PlayerController : MonoBehaviour
 	{
 		if (Input.GetKeyDown(KeyCode.J))
 		{
-			_playerMovement.DodgeAction();
+			_player.AttackAction();
 		}
 	}
 

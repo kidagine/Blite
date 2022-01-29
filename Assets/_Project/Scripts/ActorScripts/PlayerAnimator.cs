@@ -21,4 +21,14 @@ public class PlayerAnimator : MonoBehaviour
 	{
 		_animator.SetTrigger("Dodge");
 	}
+
+	public void Attack()
+	{
+		_animator.SetTrigger("Attack");
+	}
+
+	public void IsMoving(bool state)
+	{
+		_animator.SetBool("IsMoving", state);
+	}
 }

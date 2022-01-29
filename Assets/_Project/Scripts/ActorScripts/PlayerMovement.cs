@@ -5,8 +5,10 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
 	[SerializeField] private PlayerAnimator _playerAnimator = default;
+	private Player _player;
 	private Rigidbody2D _rigidbody;
 	private Vector2 _inputDirection;
+	private Vector2 _cachedMoveDirection = Vector2.down;
 	private float _maximumAngle = 0.0f;
 	private float _minimumAngle = 0.0f;
 	private float _movementSpeed = 3.0f;
@@ -16,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
 
 	void Start()
 	{
+		_player = GetComponent<Player>();
 		_rigidbody = GetComponent<Rigidbody2D>();
 	}
 
@@ -83,13 +86,28 @@ public class PlayerMovement : MonoBehaviour
 		//{
 		//	_inputDirection = Vector2.zero;
 		//}
-		_inputDirection = InputDirection;
-		_playerAnimator.SetMovement(_inputDirection);
+		if (InputDirection != Vector2.zero)
+		{
+			if (Mathf.Abs(InputDirection.x) == 1.0f && Mathf.Abs(InputDirection.y) == 1.0f)
+			{
+				InputDirection /= 1.33f;
+			}
+			Debug.Log(InputDirection);
+			_cachedMoveDirection = InputDirection;
+			_inputDirection = InputDirection;
+			_playerAnimator.SetMovement(_inputDirection);
+			_playerAnimator.IsMoving(true);
+		}
+		else
+		{
+			_inputDirection = InputDirection;
+			_playerAnimator.IsMoving(false);
+		}
 	}
 
 	private void Movement()
 	{
-		if (!_isDodging)
+		if (!_isDodging && !_player.IsAttacking)
 		{
 			_rigidbody.MovePosition(_rigidbody.position + _inputDirection * _movementSpeed * Time.fixedDeltaTime);
 		}
@@ -100,7 +118,7 @@ public class PlayerMovement : MonoBehaviour
 		if (!_isDodging)
 		{
 			_playerAnimator.Dodge();
-			_rigidbody.velocity = _inputDirection * 8.0f;
+			_rigidbody.velocity = _cachedMoveDirection * 8.0f;
 			_isDodging = true;
 		}
 	}

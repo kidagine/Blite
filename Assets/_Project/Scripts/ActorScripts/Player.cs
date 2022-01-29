@@ -3,7 +3,9 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
 	[SerializeField] private PlayerUI _playerUI = default;
+	[SerializeField] private PlayerAnimator _playerAnimator = default;
 	private float _blite;
+	public bool IsAttacking { get; private set; }
 
 
 	private void Start()
@@ -34,5 +36,19 @@ public class Player : MonoBehaviour
 			_blite += Time.deltaTime;
 			_playerUI.SetBlite(_blite);
 		}
+	}
+
+	public void AttackAction()
+	{
+		if (!IsAttacking)
+		{
+			IsAttacking = true;
+			_playerAnimator.Attack();
+		}
+	}
+
+	public void StopAttack()
+	{
+		IsAttacking = false;
 	}
 }
