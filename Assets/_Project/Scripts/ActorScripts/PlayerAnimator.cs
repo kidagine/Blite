@@ -16,4 +16,9 @@ public class PlayerAnimator : MonoBehaviour
 		_animator.SetFloat("MovementInputX", movementDirection.x);
 		_animator.SetFloat("MovementInputY", movementDirection.y);
 	}
+
+	public void Dodge()
+	{
+		_animator.SetTrigger("Dodge");
+	}
 }

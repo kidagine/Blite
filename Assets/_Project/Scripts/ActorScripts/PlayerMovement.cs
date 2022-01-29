@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -9,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
 	private float _maximumAngle = 0.0f;
 	private float _minimumAngle = 0.0f;
 	private float _movementSpeed = 3.0f;
+	private bool _isDodging;
 	public Vector2 InputDirection { get; set; }
 
 
@@ -19,7 +21,6 @@ public class PlayerMovement : MonoBehaviour
 
 	void Update()
 	{
-		Debug.Log(InputDirection);
 		MovementDirection();
 	}
 
@@ -88,6 +89,25 @@ public class PlayerMovement : MonoBehaviour
 
 	private void Movement()
 	{
-		_rigidbody.MovePosition(_rigidbody.position + _inputDirection * _movementSpeed * Time.fixedDeltaTime);
+		if (!_isDodging)
+		{
+			_rigidbody.MovePosition(_rigidbody.position + _inputDirection * _movementSpeed * Time.fixedDeltaTime);
+		}
+	}
+
+	public void DodgeAction()
+	{
+		if (!_isDodging)
+		{
+			_playerAnimator.Dodge();
+			_rigidbody.velocity = _inputDirection * 8.0f;
+			_isDodging = true;
+		}
+	}
+
+	public void StopDodge()
+	{
+		_rigidbody.velocity = Vector2.zero;
+		_isDodging = false;
 	}
 }

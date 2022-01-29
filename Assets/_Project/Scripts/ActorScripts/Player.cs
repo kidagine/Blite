@@ -1,18 +1,38 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+	[SerializeField] private PlayerUI _playerUI = default;
+	private float _blite;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
+	private void Start()
+	{
+		_blite = 1.0f;
+		_playerUI.SetBlite(_blite);
+	}
+
+	void Update()
+	{
+		RechargeBlite();
+	}
+
+	public void BliteAction()
+	{
+		if (Input.GetKeyDown(KeyCode.R) && _blite >= 1.0f)
+		{
+			_blite = 0.0f;
+			_playerUI.SetBlite(_blite);
+			BliteManager.Instance.SwapWorlds();
+		}
+	}
+
+	private void RechargeBlite()
+	{
+		if (_blite < 1.0f && !BliteManager.Instance.IsWorldChanging)
+		{
+			_blite += Time.deltaTime;
+			_playerUI.SetBlite(_blite);
+		}
+	}
 }
