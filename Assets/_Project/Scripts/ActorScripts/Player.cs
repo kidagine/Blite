@@ -21,6 +21,10 @@ public class Player : MonoBehaviour
 		_playerUI.SetBlite(_blite);
 		_audio = GetComponent<Audio>();
 		_playerMovement = GetComponent<PlayerMovement>();
+		if (SceneSettings.checkpointPosition != default)
+		{
+			transform.position = SceneSettings.checkpointPosition;
+		}
 	}
 
 	void Update()

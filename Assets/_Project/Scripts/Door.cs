@@ -31,14 +31,14 @@ public class Door : MonoBehaviour
 		if (collision.TryGetComponent(out Player player))
 		{
 			BliteManager.Instance.SwapToWhiteWorld();
+			_verticalCamera.gameObject.SetActive(false);
+			_horizontalCamera.gameObject.SetActive(false);
 			if (_isHorizontal)
 			{
-				_verticalCamera.gameObject.SetActive(false);
 				_horizontalCamera.gameObject.SetActive(true);
 			}
 			else
 			{
-				_horizontalCamera.gameObject.SetActive(false);
 				_verticalCamera.gameObject.SetActive(true);
 			}
 			player.transform.position = _enterPoint.position;
