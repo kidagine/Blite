@@ -7,7 +7,7 @@ using UnityEngine;
 public class BliteManager : Singleton<BliteManager>
 {
 	public float BliteDistance = 0.0f;
-	private readonly float _maxBliteDistance = 13.0f;
+	private readonly float _maxBliteDistance = 18.0f;
 	private readonly float _minBliteDistance = 0.0f;
 	private Audio _audio;
 	public bool IsWorldBlack { get; set; } = true;
