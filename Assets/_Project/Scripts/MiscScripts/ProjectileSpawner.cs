@@ -4,6 +4,7 @@ using UnityEngine;
 public class ProjectileSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject _projectilePrefab = default;
+    [SerializeField] private float _timeBetweenSpawn = default;
 
 
     void Start()
@@ -13,8 +14,8 @@ public class ProjectileSpawner : MonoBehaviour
 
     IEnumerator SpawnProjectileCoroutine()
     {
-        Instantiate(_projectilePrefab, transform.position, Quaternion.identity);
-        yield return new WaitForSeconds(0.35f);
+        Instantiate(_projectilePrefab, transform.position, transform.rotation);
+        yield return new WaitForSeconds(_timeBetweenSpawn);
         StartCoroutine(SpawnProjectileCoroutine());
     }
 }

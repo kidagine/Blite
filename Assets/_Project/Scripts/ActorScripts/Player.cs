@@ -1,3 +1,4 @@
+using Demonics.Sounds;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -7,6 +8,7 @@ public class Player : MonoBehaviour
 	[SerializeField] private PlayerUI _playerUI = default;
 	[SerializeField] private PlayerAnimator _playerAnimator = default;
 	private PlayerMovement _playerMovement;
+	private Audio _audio;
 	private float _blite;
 	private int _health = 3;
 	public bool IsAttacking { get; private set; }
@@ -17,6 +19,7 @@ public class Player : MonoBehaviour
 	{
 		_blite = 1.0f;
 		_playerUI.SetBlite(_blite);
+		_audio = GetComponent<Audio>();
 		_playerMovement = GetComponent<PlayerMovement>();
 	}
 
@@ -48,6 +51,7 @@ public class Player : MonoBehaviour
 	{
 		if (!IsAttacking)
 		{
+			_audio.Sound("Attack").Play();
 			IsAttacking = true;
 			_playerAnimator.Attack();
 		}
@@ -62,6 +66,7 @@ public class Player : MonoBehaviour
 	{
 		if (!IsHurt)
 		{
+			_audio.Sound("Hurt").Play();
 			_health--;
 			_playerUI.SetHealth(_health);
 			if (_health <= 0)

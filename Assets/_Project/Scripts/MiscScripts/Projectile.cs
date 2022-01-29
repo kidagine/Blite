@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
+	[SerializeField] private GameObject _explosionPrefab = default;
+
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
 		if (collision.TryGetComponent(out Player player))
@@ -16,6 +18,7 @@ public class Projectile : MonoBehaviour
 		}
 		else
 		{
+			Instantiate(_explosionPrefab, transform.position, Quaternion.identity);
 			gameObject.SetActive(false);
 		}
 	}

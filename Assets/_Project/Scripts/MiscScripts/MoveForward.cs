@@ -13,6 +13,6 @@ public class MoveForward : MonoBehaviour
 
 	void FixedUpdate()
 	{
-		_rigidbody.MovePosition(_rigidbody.position + new Vector2(transform.right.x, transform.right.y) * _movementSpeed * Time.fixedDeltaTime);
+		_rigidbody.MovePosition(_rigidbody.position + new Vector2(transform.up.x, transform.up.y) * _movementSpeed * Time.fixedDeltaTime);
 	}
 }
