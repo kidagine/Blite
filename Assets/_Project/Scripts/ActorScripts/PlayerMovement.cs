@@ -10,12 +10,12 @@ public class PlayerMovement : MonoBehaviour
 	private Rigidbody2D _rigidbody;
 	private Audio _audio;
 	private Vector2 _inputDirection;
-	private Vector2 _cachedMoveDirection = Vector2.down;
 	private readonly float _currentFootstepSpeed = 0.3f;
 	private readonly float _movementSpeed = 4.0f;
 	private readonly float _dodgeForce = 11.0f;
 	private float _footstepCooldown;
 	public Vector2 InputDirection { get; set; }
+	public Vector2 CachedMoveDirection { get; private set; } = Vector2.down;
 	public bool IsDodging { get; private set; }
 
 	void Start()
@@ -23,7 +23,7 @@ public class PlayerMovement : MonoBehaviour
 		_player = GetComponent<Player>();
 		_rigidbody = GetComponent<Rigidbody2D>();
 		_audio = GetComponent<Audio>();
-		_playerAnimator.SetMovement(_cachedMoveDirection);
+		_playerAnimator.SetMovement(CachedMoveDirection);
 	}
 
 	void Update()
@@ -45,7 +45,7 @@ public class PlayerMovement : MonoBehaviour
 			{
 				InputDirection /= 1.33f;
 			}
-			_cachedMoveDirection = InputDirection;
+			CachedMoveDirection = InputDirection;
 			_inputDirection = InputDirection;
 			_playerAnimator.SetMovement(_inputDirection);
 			_playerAnimator.IsMoving(true);
@@ -71,7 +71,7 @@ public class PlayerMovement : MonoBehaviour
 		{
 			_audio.Sound("Dodge").Play();
 			_playerAnimator.Dodge();
-			_rigidbody.velocity = _cachedMoveDirection * _dodgeForce;
+			_rigidbody.velocity = CachedMoveDirection * _dodgeForce;
 			IsDodging = true;
 		}
 	}
@@ -84,7 +84,7 @@ public class PlayerMovement : MonoBehaviour
 
 	public void Knockback(Vector2 direction = default)
 	{
-		_rigidbody.velocity = (_cachedMoveDirection * -1.0f) * 10;
+		_rigidbody.velocity = (CachedMoveDirection * -1.0f) * 10;
 		StartCoroutine(ResetVelocityCoroutine());
 	}
 

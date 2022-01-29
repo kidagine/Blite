@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+	[SerializeField] private Door _startDoor = default;
 	private PlayerMovement _playerMovement;
 	private Player _player;
 
@@ -46,6 +47,11 @@ public class PlayerController : MonoBehaviour
 	{
 		if (Input.GetKeyDown(KeyCode.R))
 		{
+			if (_startDoor != null)
+			{
+				_startDoor.Unlock();
+				_startDoor = null;
+			}
 			_player.BliteAction();
 		}
 	}

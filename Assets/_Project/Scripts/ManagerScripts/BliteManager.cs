@@ -26,6 +26,12 @@ public class BliteManager : Singleton<BliteManager>
 		StartCoroutine(SwapWorldsCoroutine());
 	}
 
+	public void SwapToWhiteWorld()
+	{
+		BliteDistance = 0.0f;
+		IsWorldBlack = true;
+	}
+
 	IEnumerator SwapWorldsCoroutine()
 	{
 		IsWorldChanging = true;
