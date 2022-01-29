@@ -2,9 +2,11 @@ using Demonics.Sounds;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class ActivationButton : MonoBehaviour
 {
+	[SerializeField] private UnityEvent _onActivate = default;
 	[SerializeField] private Sprite _activeButtonSprite = default;
 	[SerializeField] private Sprite _inactiveButtonSprite = default;
 	private SpriteRenderer _spriteRenderer;
@@ -24,6 +26,7 @@ public class ActivationButton : MonoBehaviour
 		{
 			if (collision.TryGetComponent(out Projectile projectile))
 			{
+				_onActivate?.Invoke();
 				_hasActivated = true;
 				_audio.Sound("ButtonActivate").Play();
 				_spriteRenderer.sprite = _inactiveButtonSprite;
