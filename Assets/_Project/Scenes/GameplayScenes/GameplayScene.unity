@@ -402,7 +402,7 @@ MonoBehaviour:
   m_DeadZoneDepth: 0
   m_UnlimitedSoftZone: 0
   m_SoftZoneWidth: 2
-  m_SoftZoneHeight: 2
+  m_SoftZoneHeight: 0
   m_BiasX: 0
   m_BiasY: 0
   m_CenterOnActivate: 1
@@ -32001,7 +32001,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1458373966}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 41.75, y: 117.14, z: 0}
+  m_LocalPosition: {x: 41.75, y: 115.7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1525072273}
@@ -33784,7 +33784,7 @@ MonoBehaviour:
   m_BlendUpdateMethod: 1
   m_DefaultBlend:
     m_Style: 1
-    m_Time: 1
+    m_Time: 0.75
     m_CustomCurve:
       serializedVersion: 2
       m_Curve: []
