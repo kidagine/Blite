@@ -1027,6 +1027,7 @@ GameObject:
   - component: {fileID: 1228884639}
   - component: {fileID: 1228884641}
   - component: {fileID: 1228884640}
+  - component: {fileID: 1228884642}
   m_Layer: 0
   m_Name: Music
   m_TagString: Untagged
@@ -1066,7 +1067,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 2f6190689258cf7408e33a8e000c527e, type: 3}
     volume: 0.32
     pitch: 1
-    name: 
+    name: Music
     loop: 1
     playOnAwake: 1
     playOneInstanceAtATime: 0
@@ -1083,6 +1084,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4faf6fb606a446c49a91fdba9f05ba9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1228884642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1228884638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68751884386190a4ba697b222f8a60ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1270440914

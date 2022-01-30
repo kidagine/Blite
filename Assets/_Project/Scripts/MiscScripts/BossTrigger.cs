@@ -18,9 +18,7 @@ public class BossTrigger : MonoBehaviour
 	{
 		_bossCamera.SetActive(true);
 		_pixelPerfectCamera.assetsPPU = 12;
-		GameObject music = GameObject.Find("Music");
-		if (music != null)
-		music.GetComponent<Audio>().Sound("Music").Stop();
+		MusicSingleton.Instance.GetComponent<Audio>().Sound("Music").Stop();
 		_audio.Sound("Boss").Play();
 		_bossUI.gameObject.SetActive(true);
 		_boss.gameObject.SetActive(true);	
