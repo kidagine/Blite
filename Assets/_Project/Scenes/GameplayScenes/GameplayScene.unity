@@ -33822,7 +33822,7 @@ MonoBehaviour:
     playOneInstanceAtATime: 0
   - source: {fileID: 0}
     clip: {fileID: 8300000, guid: a5cb9dc8658e47549a685f86e7f46286, type: 3}
-    volume: 0.035
+    volume: 0.3
     pitch: 1
     name: Boss
     loop: 1

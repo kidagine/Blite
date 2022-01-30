@@ -1065,7 +1065,7 @@ MonoBehaviour:
   _sounds:
   - source: {fileID: 0}
     clip: {fileID: 8300000, guid: 2f6190689258cf7408e33a8e000c527e, type: 3}
-    volume: 0.32
+    volume: 0.3
     pitch: 1
     name: Music
     loop: 1
