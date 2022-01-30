@@ -5,6 +5,9 @@ public class Projectile : MonoBehaviour
 	[SerializeField] private GameObject _explosionPrefab = default;
 	[SerializeField] private Vector2 _directionGoTo = default;
 	[SerializeField] private bool _hardCodedDirection = default;
+	[SerializeField] private Sprite _blackProjectileSprite = default;
+	[SerializeField] private bool _isBlackProjectile = default;
+	private SpriteRenderer _spriteRenderer;
 	private Rigidbody2D _rigidbody;
 	private Vector2 _direction;
 	private float _movementSpeed = 5.0f;
@@ -12,7 +15,12 @@ public class Projectile : MonoBehaviour
 
 	void Start()
 	{
+		_spriteRenderer = GetComponent<SpriteRenderer>();
 		_rigidbody = GetComponent<Rigidbody2D>();
+		if (_isBlackProjectile)
+		{
+			_spriteRenderer.sprite = _blackProjectileSprite;
+		}
 		if (_hardCodedDirection)
 		{
 			_direction = _directionGoTo;
@@ -34,7 +42,13 @@ public class Projectile : MonoBehaviour
 		{
 			if (collision.TryGetComponent(out PlayerMovement playerMovement))
 			{
-				if (!playerMovement.IsDodging || BliteManager.Instance.IsWorldBlack)
+				if (!playerMovement.IsDodging || BliteManager.Instance.IsWorldBlack && !_isBlackProjectile)
+				{
+					player.LoseHealth();
+					Instantiate(_explosionPrefab, transform.position, Quaternion.identity);
+					gameObject.SetActive(false);
+				}
+				if (!playerMovement.IsDodging|| !BliteManager.Instance.IsWorldBlack && _isBlackProjectile)
 				{
 					player.LoseHealth();
 					Instantiate(_explosionPrefab, transform.position, Quaternion.identity);
@@ -53,7 +67,7 @@ public class Projectile : MonoBehaviour
 		}
 		else if (collision.TryGetComponent(out SwordAttack swordAttack))
 		{
-			if (BliteManager.Instance.IsWorldBlack)
+			if (BliteManager.Instance.IsWorldBlack && !_isBlackProjectile || !BliteManager.Instance.IsWorldBlack && _isBlackProjectile)
 			{
 				_isReflected = true;
 				Instantiate(_explosionPrefab, transform.position, Quaternion.identity);
