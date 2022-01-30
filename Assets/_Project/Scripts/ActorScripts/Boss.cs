@@ -11,9 +11,12 @@ public class Boss : MonoBehaviour
 	[SerializeField] private Animator _animator = default;
 	[SerializeField] private Slider _healthSlider = default;
 	[SerializeField] private GameObject _bossUI = default;
+	[SerializeField] private GameObject _projectilePrefab = default;
+	[SerializeField] private Transform[] _teleportPoints = default;
 	private Rigidbody2D _rigidbody;
 	private Audio _audio;
 	private int _health = 15;
+	private int _cachedTeleportIndex;
 	private bool _isHurt;
 
 
@@ -21,6 +24,45 @@ public class Boss : MonoBehaviour
 	{
 		_audio = GetComponent<Audio>();
 		_rigidbody = GetComponent<Rigidbody2D>();
+		StartCoroutine(TeleportCoroutine());
+		StartCoroutine(AttackCoroutine());
+	}
+
+	IEnumerator TeleportCoroutine()
+	{
+		while (true)
+		{
+			yield return new WaitForSeconds(3.0f);
+			if (gameObject.activeSelf)
+			{
+				int randomTeleportIndex = Random.Range(0, _teleportPoints.Length);
+				if (randomTeleportIndex == _cachedTeleportIndex)
+				{
+					if (randomTeleportIndex == _teleportPoints.Length - 1)
+					{
+						randomTeleportIndex = 0;
+					}
+					else
+					{
+						randomTeleportIndex++;
+					}
+				}
+				transform.position = _teleportPoints[randomTeleportIndex].position;
+				_cachedTeleportIndex = randomTeleportIndex;
+			}
+		}
+	}
+
+	IEnumerator AttackCoroutine()
+	{
+		while (true)
+		{
+			yield return new WaitForSeconds(1.0f);
+			if (gameObject.activeSelf)
+			{
+				Instantiate(_projectilePrefab, transform.position, Quaternion.identity);
+			}
+		}
 	}
 
 	private void Update()

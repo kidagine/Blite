@@ -3,6 +3,8 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
 	[SerializeField] private GameObject _explosionPrefab = default;
+	[SerializeField] private Vector2 _directionGoTo = default;
+	[SerializeField] private bool _hardCodedDirection = default;
 	private Rigidbody2D _rigidbody;
 	private Vector2 _direction;
 	private float _movementSpeed = 5.0f;
@@ -11,7 +13,14 @@ public class Projectile : MonoBehaviour
 	void Start()
 	{
 		_rigidbody = GetComponent<Rigidbody2D>();
-		_direction = transform.up;
+		if (_hardCodedDirection)
+		{
+			_direction = _directionGoTo;
+		}
+		else
+		{
+			_direction = transform.up;
+		}
 	}
 
 	void FixedUpdate()
@@ -30,6 +39,12 @@ public class Projectile : MonoBehaviour
 					player.LoseHealth();
 				}
 			}
+		}
+		else if (collision.TryGetComponent(out Boss boss))
+		{
+			Instantiate(_explosionPrefab, transform.position, Quaternion.identity);
+			boss.LoseHealth(transform.up * - 1.0f);
+			gameObject.SetActive(false);
 		}
 		else if (collision.TryGetComponent(out SwordAttack swordAttack))
 		{
