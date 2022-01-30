@@ -38,7 +38,7 @@ public class BliteManager : Singleton<BliteManager>
 	{
 		IsWorldChanging = true;
 		float elapsedTime = 0.0f;
-		float waitTime = 0.5f;
+		float waitTime = 0.35f;
 		float startValue = BliteDistance;
 		if (IsWorldBlack)
 		{

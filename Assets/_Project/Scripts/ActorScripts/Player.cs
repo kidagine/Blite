@@ -47,7 +47,7 @@ public class Player : MonoBehaviour
 	{
 		if (_blite < 1.0f && !BliteManager.Instance.IsWorldChanging)
 		{
-			_blite += Time.deltaTime;
+			_blite += Time.deltaTime * 2;
 			_playerUI.SetBlite(_blite);
 		}
 	}

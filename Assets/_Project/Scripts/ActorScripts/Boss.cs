@@ -11,7 +11,7 @@ public class Boss : MonoBehaviour
 	[SerializeField] private Animator _animator = default;
 	[SerializeField] private Slider _healthSlider = default;
 	[SerializeField] private GameObject _bossUI = default;
-	[SerializeField] private GameObject _projectilePrefab = default;
+	[SerializeField] private GameObject[] _projectilePrefab = default;
 	[SerializeField] private GameObject _projectileSquare = default;
 	[SerializeField] private GameObject _projectileBeam = default;
 	[SerializeField] private GameObject _explosionPrefab = default;
@@ -20,7 +20,7 @@ public class Boss : MonoBehaviour
 	[SerializeField] private Transform _beamTeleportPoint = default;
 	private Rigidbody2D _rigidbody;
 	private Audio _audio;
-	private int _health = 14;
+	private int _health = 13;
 	private int _cachedTeleportIndex;
 	private float _attackWaitTime;
 	private bool _isHurt;
@@ -98,7 +98,8 @@ public class Boss : MonoBehaviour
 					{
 						_attackWaitTime = 0.25f;
 					}
-					Instantiate(_projectilePrefab, transform.position, Quaternion.identity);
+					int randomProjectileIndex = Random.Range(0, _projectilePrefab.Length);
+					Instantiate(_projectilePrefab[randomProjectileIndex], transform.position, Quaternion.identity);
 				}
 			}
 		}
@@ -124,9 +125,9 @@ public class Boss : MonoBehaviour
 		if (_health <= 0)
 		{
 			Vector2 transform2D = transform.position;
-			Instantiate(_projectilePrefab, transform2D + Vector2.up, Quaternion.identity);
-			Instantiate(_projectilePrefab, transform2D + Vector2.left, Quaternion.identity);
-			Instantiate(_projectilePrefab, transform2D + Vector2.right, Quaternion.identity);
+			Instantiate(_explosionPrefab, transform2D + Vector2.up, Quaternion.identity);
+			Instantiate(_explosionPrefab, transform2D + Vector2.left, Quaternion.identity);
+			Instantiate(_explosionPrefab, transform2D + Vector2.right, Quaternion.identity);
 			_bossUI.gameObject.SetActive(false);
 			_endDoor.Unlock();
 			_endBox.SetActive(true);
