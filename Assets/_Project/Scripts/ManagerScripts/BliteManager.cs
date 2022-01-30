@@ -2,10 +2,12 @@ using Demonics.Manager;
 using Demonics.Sounds;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [ExecuteInEditMode]
 public class BliteManager : Singleton<BliteManager>
 {
+	[SerializeField] private Animator _fadeAnimator = default;
 	public float BliteDistance = 0.0f;
 	private readonly float _maxBliteDistance = 18.0f;
 	private readonly float _minBliteDistance = 0.0f;
@@ -57,5 +59,17 @@ public class BliteManager : Singleton<BliteManager>
 		BliteDistance = endValue;
 		IsWorldChanging = false;
 		yield return null;
+	}
+
+	public void ResetGame()
+	{
+		_fadeAnimator.Play("FadeOut");
+		StartCoroutine(ResetCoroutine());
+	}
+
+	IEnumerator ResetCoroutine()
+	{
+		yield return new WaitForSeconds(1.0f);
+		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 	}
 }

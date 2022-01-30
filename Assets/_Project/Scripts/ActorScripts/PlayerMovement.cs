@@ -85,7 +85,10 @@ public class PlayerMovement : MonoBehaviour
 	public void Knockback(Vector2 direction = default)
 	{
 		_rigidbody.velocity = (CachedMoveDirection * -1.0f) * 10;
-		StartCoroutine(ResetVelocityCoroutine());
+		if (gameObject.activeSelf)
+		{
+			StartCoroutine(ResetVelocityCoroutine());
+		}
 	}
 
 	private void Footsteps()
@@ -103,8 +106,11 @@ public class PlayerMovement : MonoBehaviour
 
 	IEnumerator ResetVelocityCoroutine()
 	{
-		yield return new WaitForSeconds(0.1f);
-		_player.IsHurt = false;
-		_rigidbody.velocity = Vector2.zero;
+		if (gameObject.activeSelf)
+		{
+			yield return new WaitForSeconds(0.1f);
+			_player.IsHurt = false;
+			_rigidbody.velocity = Vector2.zero;
+		}
 	}
 }

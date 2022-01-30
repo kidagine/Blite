@@ -1,12 +1,11 @@
 using Demonics.Sounds;
-using System.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
 	[SerializeField] private PlayerUI _playerUI = default;
 	[SerializeField] private PlayerAnimator _playerAnimator = default;
+	[SerializeField] private GameObject _explosionPrefab = default;
 	private PlayerMovement _playerMovement;
 	private Audio _audio;
 	private float _blite;
@@ -75,8 +74,9 @@ public class Player : MonoBehaviour
 			_playerUI.SetHealth(_health);
 			if (_health <= 0)
 			{
+				Instantiate(_explosionPrefab, transform.position, Quaternion.identity);
+				BliteManager.Instance.ResetGame();
 				Destroy(gameObject);
-				SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 			}
 			IsHurt = true;
 			_playerMovement.Knockback();
