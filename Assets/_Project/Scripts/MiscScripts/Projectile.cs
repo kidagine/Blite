@@ -8,7 +8,7 @@ public class Projectile : MonoBehaviour
 	private Rigidbody2D _rigidbody;
 	private Vector2 _direction;
 	private float _movementSpeed = 5.0f;
-
+	private bool _isReflected;
 
 	void Start()
 	{
@@ -37,19 +37,25 @@ public class Projectile : MonoBehaviour
 				if (!playerMovement.IsDodging || BliteManager.Instance.IsWorldBlack)
 				{
 					player.LoseHealth();
+					Instantiate(_explosionPrefab, transform.position, Quaternion.identity);
+					gameObject.SetActive(false);
 				}
 			}
 		}
 		else if (collision.TryGetComponent(out Boss boss))
 		{
-			Instantiate(_explosionPrefab, transform.position, Quaternion.identity);
-			boss.LoseHealth(transform.up * - 1.0f);
-			gameObject.SetActive(false);
+			if (_isReflected)
+			{
+				Instantiate(_explosionPrefab, transform.position, Quaternion.identity);
+				boss.LoseHealth(transform.up * -1.0f);
+				gameObject.SetActive(false);
+			}
 		}
 		else if (collision.TryGetComponent(out SwordAttack swordAttack))
 		{
 			if (BliteManager.Instance.IsWorldBlack)
 			{
+				_isReflected = true;
 				Instantiate(_explosionPrefab, transform.position, Quaternion.identity);
 				_movementSpeed += 4;
 				_direction = swordAttack.transform.root.GetComponent<PlayerMovement>().CachedMoveDirection;

@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour
 	private float _footstepCooldown;
 	public Vector2 InputDirection { get; set; }
 	public Vector2 CachedMoveDirection { get; private set; } = Vector2.down;
-	public bool IsDodging { get; private set; }
+	public bool IsDodging { get; set; }
 
 	void Start()
 	{

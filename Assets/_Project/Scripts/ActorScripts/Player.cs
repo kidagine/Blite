@@ -81,6 +81,8 @@ public class Player : MonoBehaviour
 				BliteManager.Instance.ResetGame();
 				Destroy(gameObject);
 			}
+			IsAttacking = false;
+			_playerMovement.IsDodging = false;
 			IsHurt = true;
 			StartCoroutine(InvisibilityCoroutine());
 			_playerMovement.Knockback();

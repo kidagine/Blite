@@ -12,13 +12,19 @@ public class Boss : MonoBehaviour
 	[SerializeField] private Slider _healthSlider = default;
 	[SerializeField] private GameObject _bossUI = default;
 	[SerializeField] private GameObject _projectilePrefab = default;
+	[SerializeField] private GameObject _projectileSquare = default;
+	[SerializeField] private GameObject _projectileBeam = default;
 	[SerializeField] private Transform[] _teleportPoints = default;
+	[SerializeField] private Transform _squareTeleportPoint = default;
+	[SerializeField] private Transform _beamTeleportPoint = default;
 	private Rigidbody2D _rigidbody;
 	private Audio _audio;
 	private int _health = 15;
 	private int _cachedTeleportIndex;
+	private float _attackWaitTime;
 	private bool _isHurt;
-
+	private bool _squareAttack;
+	private bool _canTeleport = true;
 
 	private void Start()
 	{
@@ -30,46 +36,82 @@ public class Boss : MonoBehaviour
 
 	IEnumerator TeleportCoroutine()
 	{
-		while (true)
+		while (_canTeleport)
 		{
 			yield return new WaitForSeconds(3.0f);
 			if (gameObject.activeSelf)
 			{
-				int randomTeleportIndex = Random.Range(0, _teleportPoints.Length);
-				if (randomTeleportIndex == _cachedTeleportIndex)
+				int changeAttackPosition = Random.Range(0, 5);
+				if (changeAttackPosition == 1)
 				{
-					if (randomTeleportIndex == _teleportPoints.Length - 1)
-					{
-						randomTeleportIndex = 0;
-					}
-					else
-					{
-						randomTeleportIndex++;
-					}
+					_squareAttack = true;
+					transform.position = _squareTeleportPoint.position;
 				}
-				transform.position = _teleportPoints[randomTeleportIndex].position;
-				_cachedTeleportIndex = randomTeleportIndex;
+				else if (changeAttackPosition == 2)
+				{
+					transform.position = _beamTeleportPoint.position;
+					_canTeleport = false;
+				}
+				else
+				{
+					int randomTeleportIndex = Random.Range(0, _teleportPoints.Length);
+					if (randomTeleportIndex == _cachedTeleportIndex)
+					{
+						if (randomTeleportIndex == _teleportPoints.Length - 1)
+						{
+							randomTeleportIndex = 0;
+						}
+						else
+						{
+							randomTeleportIndex++;
+						}
+					}
+					transform.position = _teleportPoints[randomTeleportIndex].position;
+					_cachedTeleportIndex = randomTeleportIndex;
+				}
 			}
 		}
 	}
 
 	IEnumerator AttackCoroutine()
 	{
+		yield return new WaitForSeconds(1.0f);
 		while (true)
 		{
-			yield return new WaitForSeconds(1.0f);
+			yield return new WaitForSeconds(_attackWaitTime);
 			if (gameObject.activeSelf)
 			{
-				Instantiate(_projectilePrefab, transform.position, Quaternion.identity);
+				if (_squareAttack)
+				{
+					_attackWaitTime = 1.5f;
+					Instantiate(_projectileSquare, transform.position, Quaternion.identity);
+					_squareAttack = false;
+				}
+				else
+				{
+					if (_canTeleport)
+					{
+						_attackWaitTime = 1.0f;
+					}
+					else
+					{
+						_attackWaitTime = 0.25f;
+					}
+					Instantiate(_projectilePrefab, transform.position, Quaternion.identity);
+				}
 			}
 		}
 	}
 
 	private void Update()
 	{
-		if (!_isHurt)
+		if (!_isHurt && _canTeleport)
 		{
 			_rigidbody.velocity = Vector2.zero;
+		}
+		else if (!_canTeleport)
+		{
+			_rigidbody.MovePosition(_rigidbody.position + Vector2.right * 2 * Time.fixedDeltaTime);
 		}
 	}
 
@@ -104,5 +146,14 @@ public class Boss : MonoBehaviour
 		yield return new WaitForSeconds(0.1f);
 		_rigidbody.velocity = Vector2.zero;
 		_isHurt = false;
+	}
+
+	private void OnTriggerEnter2D(Collider2D collision)
+	{
+		if (collision.TryGetComponent(out BossStop bossStop))
+		{
+			_canTeleport = true;
+			StartCoroutine(TeleportCoroutine());
+		}
 	}
 }

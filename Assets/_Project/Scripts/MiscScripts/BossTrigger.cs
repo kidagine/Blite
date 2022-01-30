@@ -12,8 +12,10 @@ public class BossTrigger : MonoBehaviour
 
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
-		_audio.Sound("Music").FadeOut();
+		_audio.Sound("Music").Stop();
+		_audio.Sound("Boss").Play();
 		_bossUI.gameObject.SetActive(true);
 		_boss.gameObject.SetActive(true);	
+		gameObject.SetActive(false);
 	}
 }
