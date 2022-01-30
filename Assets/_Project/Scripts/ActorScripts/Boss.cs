@@ -20,7 +20,7 @@ public class Boss : MonoBehaviour
 	[SerializeField] private Transform _beamTeleportPoint = default;
 	private Rigidbody2D _rigidbody;
 	private Audio _audio;
-	private int _health = 3;
+	private int _health = 14;
 	private int _cachedTeleportIndex;
 	private float _attackWaitTime;
 	private bool _isHurt;
@@ -42,7 +42,7 @@ public class Boss : MonoBehaviour
 			yield return new WaitForSeconds(3.0f);
 			if (gameObject.activeSelf)
 			{
-				int changeAttackPosition = Random.Range(0, 6);
+				int changeAttackPosition = Random.Range(0, 5);
 				if (changeAttackPosition == 2)
 				{
 					_squareAttack = true;
