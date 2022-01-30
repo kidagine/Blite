@@ -24,7 +24,7 @@ public class ActivationButton : MonoBehaviour
 	{
 		if (!_hasActivated)
 		{
-			if (collision.TryGetComponent(out Projectile projectile))
+			if (collision.TryGetComponent(out Projectile projectile) || collision.TryGetComponent(out SwordAttack swordAttack))
 			{
 				_onActivate?.Invoke();
 				_hasActivated = true;
