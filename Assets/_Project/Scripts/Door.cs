@@ -30,18 +30,18 @@ public class Door : MonoBehaviour
 	{
 		if (collision.TryGetComponent(out Player player))
 		{
+			player.transform.position = _enterPoint.position;
 			BliteManager.Instance.SwapToWhiteWorld();
-			_verticalCamera.gameObject.SetActive(false);
-			_horizontalCamera.gameObject.SetActive(false);
 			if (_isHorizontal)
 			{
 				_horizontalCamera.gameObject.SetActive(true);
+				_verticalCamera.gameObject.SetActive(false);
 			}
 			else
 			{
 				_verticalCamera.gameObject.SetActive(true);
+				_horizontalCamera.gameObject.SetActive(false);
 			}
-			player.transform.position = _enterPoint.position;
 		}
 	}
 
