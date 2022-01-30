@@ -31,4 +31,9 @@ public class PlayerAnimator : MonoBehaviour
 	{
 		_animator.SetBool("IsMoving", state);
 	}
+
+	public void Hurt()
+	{
+		_animator.SetTrigger("Hurt");
+	}
 }

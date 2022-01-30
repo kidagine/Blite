@@ -1,4 +1,5 @@
 using Demonics.Sounds;
+using System.Collections;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -10,6 +11,7 @@ public class Player : MonoBehaviour
 	private Audio _audio;
 	private float _blite;
 	private int _health = 3;
+	private bool _invisibility;
 	public bool IsAttacking { get; private set; }
 	public bool IsHurt { get; set; }
 
@@ -67,9 +69,10 @@ public class Player : MonoBehaviour
 
 	public void LoseHealth()
 	{
-		if (!IsHurt)
+		if (!IsHurt && !_invisibility)
 		{
 			_audio.Sound("Hurt").Play();
+			_playerAnimator.Hurt();
 			_health--;
 			_playerUI.SetHealth(_health);
 			if (_health <= 0)
@@ -79,8 +82,15 @@ public class Player : MonoBehaviour
 				Destroy(gameObject);
 			}
 			IsHurt = true;
+			StartCoroutine(InvisibilityCoroutine());
 			_playerMovement.Knockback();
-			//StartCoroutine(InvisibilityCoroutine());
 		}
+	}
+
+	IEnumerator InvisibilityCoroutine()
+	{
+		_invisibility = true;
+		yield return new WaitForSeconds(0.15f); ;
+		_invisibility = false;
 	}
 }

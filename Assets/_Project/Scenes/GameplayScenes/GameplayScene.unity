@@ -11660,6 +11660,18 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -1768215386552061789, guid: 4b36f9ee7c9063d4d8b6a1d688228646, type: 3}
     - target: {fileID: 6173976720141804954, guid: e83c292e7060eed4598ce256a7230886, type: 3}
+      propertyPath: m_SortingLayer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6173976720141804954, guid: e83c292e7060eed4598ce256a7230886, type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6173976720141804954, guid: e83c292e7060eed4598ce256a7230886, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1713565227
+      objectReference: {fileID: 0}
+    - target: {fileID: 6173976720141804954, guid: e83c292e7060eed4598ce256a7230886, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
@@ -37613,6 +37625,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerUI: {fileID: 486273553}
   _playerAnimator: {fileID: 227715551}
+  _explosionPrefab: {fileID: 1051599143425080947, guid: e8cb663871d123e48867dbad2b833065, type: 3}
 --- !u!114 &1950759614
 MonoBehaviour:
   m_ObjectHideFlags: 0
