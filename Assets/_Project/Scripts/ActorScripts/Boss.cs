@@ -41,13 +41,13 @@ public class Boss : MonoBehaviour
 			yield return new WaitForSeconds(3.0f);
 			if (gameObject.activeSelf)
 			{
-				int changeAttackPosition = Random.Range(0, 5);
-				if (changeAttackPosition == 1)
+				int changeAttackPosition = Random.Range(0, 6);
+				if (changeAttackPosition == 2)
 				{
 					_squareAttack = true;
 					transform.position = _squareTeleportPoint.position;
 				}
-				else if (changeAttackPosition == 2)
+				else if (changeAttackPosition == 3)
 				{
 					transform.position = _beamTeleportPoint.position;
 					_canTeleport = false;
