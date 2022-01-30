@@ -14,12 +14,13 @@ public class Boss : MonoBehaviour
 	[SerializeField] private GameObject _projectilePrefab = default;
 	[SerializeField] private GameObject _projectileSquare = default;
 	[SerializeField] private GameObject _projectileBeam = default;
+	[SerializeField] private GameObject _explosionPrefab = default;
 	[SerializeField] private Transform[] _teleportPoints = default;
 	[SerializeField] private Transform _squareTeleportPoint = default;
 	[SerializeField] private Transform _beamTeleportPoint = default;
 	private Rigidbody2D _rigidbody;
 	private Audio _audio;
-	private int _health = 15;
+	private int _health = 3;
 	private int _cachedTeleportIndex;
 	private float _attackWaitTime;
 	private bool _isHurt;
@@ -122,6 +123,10 @@ public class Boss : MonoBehaviour
 		_health--;
 		if (_health <= 0)
 		{
+			Vector2 transform2D = transform.position;
+			Instantiate(_projectilePrefab, transform2D + Vector2.up, Quaternion.identity);
+			Instantiate(_projectilePrefab, transform2D + Vector2.left, Quaternion.identity);
+			Instantiate(_projectilePrefab, transform2D + Vector2.right, Quaternion.identity);
 			_bossUI.gameObject.SetActive(false);
 			_endDoor.Unlock();
 			_endBox.SetActive(true);
