@@ -9,7 +9,7 @@ public class EndBox : MonoBehaviour
 	{
 		if (collision.TryGetComponent(out Player player))
 		{
-			SceneManager.LoadScene(2);
+			SceneManager.LoadScene(3);
 		}
 	}
 }
